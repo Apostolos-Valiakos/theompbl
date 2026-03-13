@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ATRIA COMMERCE | Ecommerce & Digital Services</title>
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="favicon.png" />
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap"
       rel="stylesheet"
@@ -266,12 +268,13 @@
         top: 15%;
         left: 50%;
         transform: translateX(-50%);
-        width: 220px;
-        height: 280px;
+        width: 260px;
+        height: 300px;
         border: 1.5px solid var(--gold-light);
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 20px;
       }
 
       .hero-graphic::after {
@@ -590,7 +593,19 @@
         opacity: 1;
         transform: none;
       }
+      .logo-nav {
+        height: 120px;
+        width: auto;
+        display: block;
+      }
 
+      .logo-hero {
+        width: 450px;
+        height: auto;
+        object-fit: contain;
+        position: relative;
+        z-index: 2;
+      }
       /* ─── RESPONSIVE ─── */
       @media (max-width: 900px) {
         #home {
@@ -627,7 +642,9 @@
   <body>
     <!-- NAV -->
     <nav>
-      <a href="#home" class="nav-logo">ATRIA<span>.</span></a>
+      <a href="#home" class="nav-logo">
+        <img src="logo.jpeg" alt="ATRIA Commerce" class="logo-nav" />
+      </a>
       <ul>
         <li><a href="#services">Services</a></li>
         <li><a href="#about">Company Info</a></li>
@@ -655,7 +672,7 @@
       </div>
       <div class="hero-right">
         <div class="hero-graphic">
-          <div class="hero-graphic-inner">ATRIA<br />COMMERCE</div>
+          <img src="logo_no_bg.png" alt="ATRIA Commerce" class="logo-hero" />
         </div>
         <div class="hero-stat-block">
           <div class="hero-stat">
@@ -824,10 +841,6 @@
           <dd>ΜΠΛΙΑΜΠΛΙΑΣ Θ. ΜΟΝΟΠΡΟΣΩΠΗ ΙΔΙΩΤΙΚΗ ΚΕΦΑΛΑΙΟΥΧΙΚΗ ΕΤΑΙΡΕΙΑ</dd>
         </div>
         <div class="company-info-row">
-          <dt>Legal Form:</dt>
-          <dd>Single Member Private Company (IKE)</dd>
-        </div>
-        <div class="company-info-row">
           <dt>VAT Number:</dt>
           <dd>EL803204250</dd>
         </div>
@@ -842,14 +855,6 @@
         <div class="company-info-row">
           <dt>Registered Address:</dt>
           <dd>Φιλίου Ν 3, 41335, Λάρισα, Ελλάδα</dd>
-        </div>
-        <div class="company-info-row">
-          <dt>Registry:</dt>
-          <dd>General Commercial Registry, Greece</dd>
-        </div>
-        <div class="company-info-row">
-          <dt>Managing Director:</dt>
-          <dd>Θεόδωρος Μπλιαμπλιάς</dd>
         </div>
       </dl>
     </section>

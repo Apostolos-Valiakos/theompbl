@@ -1,626 +1,880 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meridian Advisory | Professional Services</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --ink: #0f1117;
-      --mist: #f4f4f0;
-      --white: #ffffff;
-      --gold: #c9a96e;
-      --gold-light: #e8d4b0;
-      --text-body: #4a4f5e;
-      --border: #e2e2dc;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--white);
-      color: var(--ink);
-      font-size: 16px;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    /* ─── NAV ─── */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.4rem 6%;
-      background: rgba(255,255,255,0.93);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.35rem;
-      font-weight: 600;
-      color: var(--ink);
-      letter-spacing: 0.02em;
-      text-decoration: none;
-    }
-
-    .nav-logo span { color: var(--gold); }
-
-    nav ul { display: flex; gap: 2.4rem; list-style: none; }
-
-    nav ul a {
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: var(--text-body);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-
-    nav ul a:hover { color: var(--gold); }
-
-    .nav-cta {
-      background: var(--ink);
-      color: var(--white) !important;
-      padding: 0.55rem 1.4rem;
-      border-radius: 2px;
-      transition: background 0.2s !important;
-    }
-
-    .nav-cta:hover { background: var(--gold) !important; color: var(--ink) !important; }
-
-    /* ─── HERO ─── */
-    #home {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: center;
-      padding-top: 80px;
-    }
-
-    .hero-left {
-      padding: 8% 6% 8% 8%;
-      animation: fadeUp 0.9s ease both;
-    }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.4rem;
-    }
-
-    .hero-eyebrow::before {
-      content: '';
-      display: block;
-      width: 2rem;
-      height: 1px;
-      background: var(--gold);
-    }
-
-    .hero-left h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.8rem, 5vw, 4.2rem);
-      font-weight: 600;
-      line-height: 1.15;
-      color: var(--ink);
-      margin-bottom: 1.6rem;
-    }
-
-    .hero-left h1 em { font-style: italic; color: var(--gold); }
-
-    .hero-left p {
-      font-size: 1.05rem;
-      color: var(--text-body);
-      max-width: 480px;
-      margin-bottom: 2.4rem;
-      font-weight: 300;
-    }
-
-    .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
-
-    .btn-primary {
-      display: inline-block;
-      padding: 0.85rem 2rem;
-      background: var(--ink);
-      color: var(--white);
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      border-radius: 2px;
-      transition: background 0.2s, transform 0.15s;
-    }
-
-    .btn-primary:hover { background: var(--gold); color: var(--ink); transform: translateY(-1px); }
-
-    .btn-outline {
-      display: inline-block;
-      padding: 0.85rem 2rem;
-      border: 1.5px solid var(--border);
-      color: var(--ink);
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 500;
-      letter-spacing: 0.04em;
-      border-radius: 2px;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-
-    .hero-right {
-      height: 100vh;
-      background: var(--mist);
-      position: relative;
-      overflow: hidden;
-      animation: fadeIn 1.1s ease both;
-    }
-
-    .hero-right::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse at 30% 50%, rgba(201,169,110,0.18) 0%, transparent 60%),
-        linear-gradient(160deg, var(--mist) 0%, #e8e5de 100%);
-    }
-
-    .hero-stat-block {
-      position: absolute;
-      bottom: 14%;
-      left: 10%; right: 10%;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-    }
-
-    .hero-stat {
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(6px);
-      padding: 1.4rem 1.2rem;
-      text-align: center;
-    }
-
-    .hero-stat strong {
-      display: block;
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 600;
-      color: var(--ink);
-    }
-
-    .hero-stat span {
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-body);
-    }
-
-    .hero-graphic {
-      position: absolute;
-      top: 15%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 220px;
-      height: 280px;
-      border: 1.5px solid var(--gold-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-graphic::after {
-      content: '';
-      position: absolute;
-      inset: 16px;
-      border: 1px solid var(--border);
-    }
-
-    .hero-graphic-inner {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      color: var(--gold);
-      letter-spacing: 0.1em;
-      text-align: center;
-      line-height: 2;
-      z-index: 1;
-    }
-
-    /* ─── SHARED SECTION ─── */
-    section { padding: 6rem 8%; }
-
-    .section-label {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1rem;
-    }
-
-    .section-label::before {
-      content: '';
-      width: 1.8rem;
-      height: 1px;
-      background: var(--gold);
-    }
-
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      font-weight: 600;
-      color: var(--ink);
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-
-    .section-subtitle {
-      font-size: 1rem;
-      color: var(--text-body);
-      font-weight: 300;
-      max-width: 540px;
-      margin-bottom: 3.5rem;
-    }
-
-    /* ─── ABOUT ─── */
-    #about { background: var(--mist); }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 1fr;
-      gap: 5rem;
-      align-items: center;
-    }
-
-    .about-body p {
-      color: var(--text-body);
-      font-weight: 300;
-      margin-bottom: 1.2rem;
-      font-size: 1rem;
-    }
-
-    .about-right { display: flex; flex-direction: column; gap: 1.5rem; }
-
-    .about-value {
-      padding: 1.6rem 1.8rem;
-      background: var(--white);
-      border-left: 3px solid var(--gold);
-      border-radius: 0 2px 2px 0;
-    }
-
-    .about-value h4 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 0.4rem;
-    }
-
-    .about-value p { font-size: 0.92rem; color: var(--text-body); font-weight: 300; }
-
-    /* ─── SERVICES ─── */
-    #services { background: var(--white); }
-
-    .services-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5px;
-      background: var(--border);
-      border: 1px solid var(--border);
-    }
-
-    .service-card {
-      background: var(--white);
-      padding: 2.4rem 2rem;
-      transition: background 0.25s;
-      cursor: default;
-    }
-
-    .service-card:hover { background: var(--ink); }
-    .service-card:hover .service-num,
-    .service-card:hover h3,
-    .service-card:hover p { color: var(--white); }
-    .service-card:hover .service-divider { background: var(--gold); }
-
-    .service-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.85rem;
-      color: var(--gold);
-      letter-spacing: 0.1em;
-      margin-bottom: 1.2rem;
-      transition: color 0.25s;
-    }
-
-    .service-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 0.7rem;
-      transition: color 0.25s;
-    }
-
-    .service-divider {
-      width: 2rem;
-      height: 1.5px;
-      background: var(--border);
-      margin-bottom: 0.9rem;
-      transition: background 0.25s;
-    }
-
-    .service-card p {
-      font-size: 0.92rem;
-      color: var(--text-body);
-      font-weight: 300;
-      line-height: 1.65;
-      transition: color 0.25s;
-    }
-
-    /* ─── CONTACT STRIP ─── */
-    #contact {
-      background: var(--ink);
-      padding: 5rem 8%;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 3rem;
-    }
-
-    #contact h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.6rem, 3vw, 2.2rem);
-      font-weight: 600;
-      color: var(--white);
-      margin-bottom: 0.5rem;
-    }
-
-    #contact p { color: rgba(255,255,255,0.5); font-size: 0.95rem; font-weight: 300; }
-
-    .contact-info { display: flex; flex-direction: column; gap: 0.6rem; text-align: right; }
-
-    .contact-info a {
-      color: rgba(255,255,255,0.75);
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-    }
-
-    .contact-info a:hover { color: var(--gold); }
-
-    .contact-info span {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--gold);
-    }
-
-    /* ─── FOOTER ─── */
-    footer {
-      background: #0a0c11;
-      color: rgba(255,255,255,0.3);
-      padding: 1.6rem 8%;
-      font-size: 0.8rem;
-      letter-spacing: 0.04em;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    footer .footer-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.05rem;
-      color: var(--white);
-    }
-
-    footer .footer-logo span { color: var(--gold); }
-
-    /* ─── ANIMATIONS ─── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(24px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-
-    .reveal.visible { opacity: 1; transform: none; }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 900px) {
-      #home { grid-template-columns: 1fr; }
-      .hero-right { display: none; }
-      .hero-left { padding: 10rem 8% 4rem; }
-      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-      .services-grid { grid-template-columns: 1fr; }
-      #contact { grid-template-columns: 1fr; }
-      .contact-info { text-align: left; }
-      nav ul { display: none; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- NAV -->
-  <nav>
-    <a href="#home" class="nav-logo">Meridian<span>.</span></a>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#services">Services</a></li>
-      <li><a href="#contact" class="nav-cta">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- HERO -->
-  <section id="home">
-    <div class="hero-left">
-      <p class="hero-eyebrow">Professional Advisory Services</p>
-      <h1>Strategy built for <em>lasting</em> results.</h1>
-      <p>Meridian Advisory partners with businesses to navigate complexity, unlock growth, and build resilient organizations — from early-stage to enterprise.</p>
-      <div class="btn-group">
-        <a href="#services" class="btn-primary">Our Services</a>
-        <a href="#about" class="btn-outline">Learn About Us</a>
-      </div>
-    </div>
-    <div class="hero-right">
-      <div class="hero-graphic">
-        <div class="hero-graphic-inner">
-          MERIDIAN<br/>ADVISORY<br/>GROUP
-        </div>
-      </div>
-      <div class="hero-stat-block">
-        <div class="hero-stat">
-          <strong>18+</strong>
-          <span>Years Experience</span>
-        </div>
-        <div class="hero-stat">
-          <strong>340</strong>
-          <span>Clients Served</span>
-        </div>
-        <div class="hero-stat">
-          <strong>97%</strong>
-          <span>Retention Rate</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about">
-    <div class="about-grid reveal">
-      <div class="about-body">
-        <p class="section-label">About Us</p>
-        <h2 class="section-title">A firm that puts your goals first.</h2>
-        <p>Founded in 2006, Meridian Advisory Group has built a reputation for delivering clear, actionable guidance to businesses across industries. We combine deep sector expertise with a personalized approach — because no two challenges are alike.</p>
-        <p>Our team of senior consultants brings experience from across finance, operations, legal, and technology — giving clients a comprehensive perspective backed by real-world know-how.</p>
-        <p>Whether you're scaling rapidly, facing a critical decision, or planning for the future, we bring clarity to complexity and help you move forward with confidence.</p>
-      </div>
-      <div class="about-right">
-        <div class="about-value">
-          <h4>Clarity Over Complexity</h4>
-          <p>We distill complex information into actionable insight your team can act on immediately.</p>
-        </div>
-        <div class="about-value">
-          <h4>Long-Term Partnership</h4>
-          <p>We measure success not by projects delivered, but by the enduring value we create for clients.</p>
-        </div>
-        <div class="about-value">
-          <h4>Integrity in All We Do</h4>
-          <p>Honest advice — even when it's difficult — is the foundation of every client relationship.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section id="services">
-    <div class="reveal">
-      <p class="section-label">What We Offer</p>
-      <h2 class="section-title">Our Services</h2>
-      <p class="section-subtitle">Tailored advisory solutions across the areas that matter most to your business.</p>
-    </div>
-    <div class="services-grid reveal">
-      <div class="service-card">
-        <p class="service-num">01</p>
-        <h3>Strategic Planning</h3>
-        <div class="service-divider"></div>
-        <p>We help leadership teams define a clear direction, set measurable goals, and build roadmaps that align the whole organization toward a shared vision.</p>
-      </div>
-      <div class="service-card">
-        <p class="service-num">02</p>
-        <h3>Financial Advisory</h3>
-        <div class="service-divider"></div>
-        <p>From cash flow optimization to M&A due diligence, our advisors provide rigorous analysis and guidance needed to make confident financial decisions.</p>
-      </div>
-      <div class="service-card">
-        <p class="service-num">03</p>
-        <h3>Operational Excellence</h3>
-        <div class="service-divider"></div>
-        <p>We identify inefficiencies, streamline processes, and implement systems that reduce cost while improving quality and team performance.</p>
-      </div>
-      <div class="service-card">
-        <p class="service-num">04</p>
-        <h3>Risk Management</h3>
-        <div class="service-divider"></div>
-        <p>Proactive risk assessment and mitigation frameworks that protect your organization from financial, reputational, and operational threats.</p>
-      </div>
-      <div class="service-card">
-        <p class="service-num">05</p>
-        <h3>Leadership Development</h3>
-        <div class="service-divider"></div>
-        <p>Executive coaching, succession planning, and leadership programs that cultivate the talent your organization needs to grow sustainably.</p>
-      </div>
-      <div class="service-card">
-        <p class="service-num">06</p>
-        <h3>Technology Transformation</h3>
-        <div class="service-divider"></div>
-        <p>We guide businesses through digital transformation — from system selection and implementation to change management and adoption.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT STRIP -->
-  <section id="contact">
-    <div>
-      <h2>Ready to get started?</h2>
-      <p>Reach out — we respond within one business day.</p>
-    </div>
-    <div class="contact-info">
-      <span>Contact</span>
-      <a href="tel:+14155550192">(415) 555-0192</a>
-      <a href="mailto:hello@meridianadvisory.com">hello@meridianadvisory.com</a>
-      <a href="#">1200 Harbor Blvd, Suite 400 · San Francisco, CA</a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-logo">Meridian<span>.</span></div>
-    <p>© 2025 Meridian Advisory Group. All rights reserved.</p>
-    <p>San Francisco, CA</p>
-  </footer>
-
-  <script>
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((e, i) => {
-        if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 100);
-          observer.unobserve(e.target);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATRIA COMMERCE | Ecommerce & Digital Services</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --ink: #0f1117;
+        --mist: #f4f4f0;
+        --white: #ffffff;
+        --gold: #c9a96e;
+        --gold-light: #e8d4b0;
+        --text-body: #4a4f5e;
+        --border: #e2e2dc;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--white);
+        color: var(--ink);
+        font-size: 16px;
+        line-height: 1.7;
+        overflow-x: hidden;
+      }
+
+      /* ─── NAV ─── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.4rem 6%;
+        background: rgba(255, 255, 255, 0.93);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1.35rem;
+        font-weight: 600;
+        color: var(--ink);
+        letter-spacing: 0.02em;
+        text-decoration: none;
+      }
+
+      .nav-logo span {
+        color: var(--gold);
+      }
+
+      nav ul {
+        display: flex;
+        gap: 2.4rem;
+        list-style: none;
+      }
+
+      nav ul a {
+        text-decoration: none;
+        font-size: 0.88rem;
+        font-weight: 500;
+        color: var(--text-body);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        transition: color 0.2s;
+      }
+
+      nav ul a:hover {
+        color: var(--gold);
+      }
+
+      .nav-cta {
+        background: var(--ink);
+        color: var(--white) !important;
+        padding: 0.55rem 1.4rem;
+        border-radius: 2px;
+        transition: background 0.2s !important;
+      }
+
+      .nav-cta:hover {
+        background: var(--gold) !important;
+        color: var(--ink) !important;
+      }
+
+      /* ─── HERO ─── */
+      #home {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        padding-top: 80px;
+      }
+
+      .hero-left {
+        padding: 8% 6% 8% 8%;
+        animation: fadeUp 0.9s ease both;
+      }
+
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1.4rem;
+      }
+
+      .hero-eyebrow::before {
+        content: "";
+        display: block;
+        width: 2rem;
+        height: 1px;
+        background: var(--gold);
+      }
+
+      .hero-left h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2.8rem, 5vw, 4.2rem);
+        font-weight: 600;
+        line-height: 1.15;
+        color: var(--ink);
+        margin-bottom: 1.6rem;
+      }
+
+      .hero-left h1 em {
+        font-style: italic;
+        color: var(--gold);
+      }
+
+      .hero-left p {
+        font-size: 1.05rem;
+        color: var(--text-body);
+        max-width: 480px;
+        margin-bottom: 2.4rem;
+        font-weight: 300;
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn-primary {
+        display: inline-block;
+        padding: 0.85rem 2rem;
+        background: var(--ink);
+        color: var(--white);
+        text-decoration: none;
+        font-size: 0.88rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        border-radius: 2px;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+
+      .btn-primary:hover {
+        background: var(--gold);
+        color: var(--ink);
+        transform: translateY(-1px);
+      }
+
+      .btn-outline {
+        display: inline-block;
+        padding: 0.85rem 2rem;
+        border: 1.5px solid var(--border);
+        color: var(--ink);
+        text-decoration: none;
+        font-size: 0.88rem;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        border-radius: 2px;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+
+      .btn-outline:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+
+      .hero-right {
+        height: 100vh;
+        background: var(--mist);
+        position: relative;
+        overflow: hidden;
+        animation: fadeIn 1.1s ease both;
+      }
+
+      .hero-right::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse at 30% 50%,
+            rgba(201, 169, 110, 0.18) 0%,
+            transparent 60%
+          ),
+          linear-gradient(160deg, var(--mist) 0%, #e8e5de 100%);
+      }
+
+      .hero-stat-block {
+        position: absolute;
+        bottom: 14%;
+        left: 10%;
+        right: 10%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+      }
+
+      .hero-stat {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(6px);
+        padding: 1.4rem 1.2rem;
+        text-align: center;
+      }
+
+      .hero-stat strong {
+        display: block;
+        font-family: "Playfair Display", serif;
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--ink);
+      }
+
+      .hero-stat span {
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-body);
+      }
+
+      .hero-graphic {
+        position: absolute;
+        top: 15%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 220px;
+        height: 280px;
+        border: 1.5px solid var(--gold-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-graphic::after {
+        content: "";
+        position: absolute;
+        inset: 16px;
+        border: 1px solid var(--border);
+      }
+
+      .hero-graphic-inner {
+        font-family: "Playfair Display", serif;
+        font-size: 1rem;
+        color: var(--gold);
+        letter-spacing: 0.1em;
+        text-align: center;
+        line-height: 2;
+        z-index: 1;
+      }
+
+      /* ─── SHARED SECTION ─── */
+      section {
+        padding: 6rem 8%;
+      }
+
+      .section-label {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1rem;
+      }
+
+      .section-label::before {
+        content: "";
+        width: 1.8rem;
+        height: 1px;
+        background: var(--gold);
+      }
+
+      .section-title {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 3.5vw, 2.8rem);
+        font-weight: 600;
+        color: var(--ink);
+        line-height: 1.2;
+        margin-bottom: 1rem;
+      }
+
+      .section-subtitle {
+        font-size: 1rem;
+        color: var(--text-body);
+        font-weight: 300;
+        max-width: 540px;
+        margin-bottom: 3.5rem;
+      }
+
+      /* ─── ABOUT ─── */
+      #about {
+        background: var(--mist);
+      }
+
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+      }
+
+      .about-body p {
+        color: var(--text-body);
+        font-weight: 300;
+        margin-bottom: 1.2rem;
+        font-size: 1rem;
+      }
+
+      .about-right {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .about-value {
+        padding: 1.6rem 1.8rem;
+        background: var(--white);
+        border-left: 3px solid var(--gold);
+        border-radius: 0 2px 2px 0;
+      }
+
+      .about-value h4 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--ink);
+        margin-bottom: 0.4rem;
+      }
+
+      .about-value p {
+        font-size: 0.92rem;
+        color: var(--text-body);
+        font-weight: 300;
+      }
+
+      /* ─── SERVICES ─── */
+      #services {
+        background: var(--white);
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5px;
+        background: var(--border);
+        border: 1px solid var(--border);
+      }
+
+      .service-card {
+        background: var(--white);
+        padding: 2.4rem 2rem;
+        transition: background 0.25s;
+        cursor: default;
+      }
+
+      .service-card:hover {
+        background: var(--ink);
+      }
+      .service-card:hover .service-num,
+      .service-card:hover h3,
+      .service-card:hover p {
+        color: var(--white);
+      }
+      .service-card:hover .service-divider {
+        background: var(--gold);
+      }
+
+      .service-num {
+        font-family: "Playfair Display", serif;
+        font-size: 0.85rem;
+        color: var(--gold);
+        letter-spacing: 0.1em;
+        margin-bottom: 1.2rem;
+        transition: color 0.25s;
+      }
+
+      .service-card h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--ink);
+        margin-bottom: 0.7rem;
+        transition: color 0.25s;
+      }
+
+      .service-divider {
+        width: 2rem;
+        height: 1.5px;
+        background: var(--border);
+        margin-bottom: 0.9rem;
+        transition: background 0.25s;
+      }
+
+      .service-card p {
+        font-size: 0.92rem;
+        color: var(--text-body);
+        font-weight: 300;
+        line-height: 1.65;
+        transition: color 0.25s;
+      }
+
+      /* ─── CONTACT STRIP ─── */
+      #contact {
+        background: var(--ink);
+        padding: 5rem 8%;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 3rem;
+      }
+
+      #contact h2 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        font-weight: 600;
+        color: var(--white);
+        margin-bottom: 0.5rem;
+      }
+
+      #contact p {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.95rem;
+        font-weight: 300;
+      }
+
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        text-align: right;
+      }
+
+      .contact-info a {
+        color: rgba(255, 255, 255, 0.75);
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: color 0.2s;
+      }
+
+      .contact-info a:hover {
+        color: var(--gold);
+      }
+
+      .contact-info span {
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--gold);
+      }
+
+      /* ─── COMPANY INFO ─── */
+      #company-info {
+        background: #0a0c11;
+        padding: 3rem 8%;
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+      }
+
+      .company-info-title {
+        font-family: "Playfair Display", serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.45);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 1.4rem;
+      }
+
+      .company-info-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 0.55rem 3rem;
+      }
+
+      .company-info-row {
+        display: flex;
+        gap: 0.6rem;
+        font-size: 0.8rem;
+        line-height: 1.5;
+      }
+
+      .company-info-row dt {
+        color: rgba(255, 255, 255, 0.3);
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .company-info-row dd {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      /* ─── FOOTER ─── */
+      footer {
+        background: #0a0c11;
+        color: rgba(255, 255, 255, 0.3);
+        padding: 1.4rem 8%;
+        font-size: 0.8rem;
+        letter-spacing: 0.04em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      footer .footer-logo {
+        font-family: "Playfair Display", serif;
+        font-size: 1.05rem;
+        color: var(--white);
+      }
+
+      footer .footer-logo span {
+        color: var(--gold);
+      }
+
+      /* ─── ANIMATIONS ─── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
         }
-      });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => observer.observe(el));
-  </script>
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-</body>
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+          opacity 0.65s ease,
+          transform 0.65s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* ─── RESPONSIVE ─── */
+      @media (max-width: 900px) {
+        #home {
+          grid-template-columns: 1fr;
+        }
+        .hero-right {
+          display: none;
+        }
+        .hero-left {
+          padding: 10rem 8% 4rem;
+        }
+        .about-grid {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+        .services-grid {
+          grid-template-columns: 1fr;
+        }
+        #contact {
+          grid-template-columns: 1fr;
+        }
+        .contact-info {
+          text-align: left;
+        }
+        nav ul {
+          display: none;
+        }
+        .company-info-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav>
+      <a href="#home" class="nav-logo">ATRIA<span>.</span></a>
+      <ul>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">Company Info</a></li>
+        <li><a href="#contact" class="nav-cta">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home">
+      <div class="hero-left">
+        <p class="hero-eyebrow">
+          Ecommerce &bull; Performance Marketing &bull; Brand Growth
+        </p>
+        <h1>Digital commerce built for <em>modern</em> brands.</h1>
+        <p>
+          ATRIA COMMERCE is a Greece-based company focused on ecommerce, online
+          retail activity, digital advertising, and internet-based business
+          services. We build and support modern commercial operations with a
+          focus on flexibility, digital presence, and scalable growth.
+        </p>
+        <div class="btn-group">
+          <a href="#services" class="btn-primary">Our Services</a>
+          <a href="#about" class="btn-outline">Company Info</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-graphic">
+          <div class="hero-graphic-inner">ATRIA<br />COMMERCE</div>
+        </div>
+        <div class="hero-stat-block">
+          <div class="hero-stat">
+            <strong>IKE</strong>
+            <span>Legal Form</span>
+          </div>
+          <div class="hero-stat">
+            <strong>GR</strong>
+            <span>Based in Greece</span>
+          </div>
+          <div class="hero-stat">
+            <strong>2024</strong>
+            <span>Established</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="about-grid reveal">
+        <div class="about-body">
+          <p class="section-label">About Us</p>
+          <h2 class="section-title">
+            A modern company built for digital commerce.
+          </h2>
+          <p>
+            ATRIA COMMERCE is a single-member private company based in Larisa,
+            Greece. The company operates in the broader field of ecommerce,
+            internet services, and digital advertising.
+          </p>
+          <p>
+            Its business activity includes online retail-related services,
+            website and internet-based services, digital promotion, and related
+            commercial activity carried out through modern online channels.
+          </p>
+          <p>
+            The company is structured to support present and future digital
+            business operations with a clear legal and commercial foundation.
+          </p>
+        </div>
+        <div class="about-right">
+          <div class="about-value">
+            <h4>Digital-First Approach</h4>
+            <p>
+              Focused on modern commerce, online operations, and internet-based
+              business activity.
+            </p>
+          </div>
+          <div class="about-value">
+            <h4>Commercial Flexibility</h4>
+            <p>
+              Built to support evolving business models across ecommerce,
+              digital services, and advertising.
+            </p>
+          </div>
+          <div class="about-value">
+            <h4>Professional Structure</h4>
+            <p>
+              Established with clear legal, tax, and operational foundations in
+              Greece.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="reveal">
+        <p class="section-label">What We Offer</p>
+        <h2 class="section-title">Our Services</h2>
+        <p class="section-subtitle">
+          Ecommerce and digital solutions built for modern online brands.
+        </p>
+      </div>
+      <div class="services-grid reveal">
+        <div class="service-card">
+          <p class="service-num">01</p>
+          <h3>Ecommerce Operations</h3>
+          <div class="service-divider"></div>
+          <p>
+            Support for internet-based retail operations, online store
+            management, and commercial activity conducted through digital sales
+            channels.
+          </p>
+        </div>
+        <div class="service-card">
+          <p class="service-num">02</p>
+          <h3>Digital Advertising</h3>
+          <div class="service-divider"></div>
+          <p>
+            Online advertising services across major platforms including Meta
+            (Facebook &amp; Instagram) and TikTok, focused on performance
+            marketing and audience reach.
+          </p>
+        </div>
+        <div class="service-card">
+          <p class="service-num">03</p>
+          <h3>Website &amp; Online Infrastructure</h3>
+          <div class="service-divider"></div>
+          <p>
+            Development and support of website presence, digital storefronts,
+            and the technical infrastructure required for modern online
+            businesses.
+          </p>
+        </div>
+        <div class="service-card">
+          <p class="service-num">04</p>
+          <h3>Internet Business Services</h3>
+          <div class="service-divider"></div>
+          <p>
+            Commercial services connected to online business activity, including
+            digital operations, web-based systems, and internet-enabled business
+            processes.
+          </p>
+        </div>
+        <div class="service-card">
+          <p class="service-num">05</p>
+          <h3>Brand &amp; Store Development</h3>
+          <div class="service-divider"></div>
+          <p>
+            Support for brand presence, ecommerce store structure, and the
+            operational framework required for modern digital brands.
+          </p>
+        </div>
+        <div class="service-card">
+          <p class="service-num">06</p>
+          <h3>Ecommerce Growth &amp; Marketing</h3>
+          <div class="service-divider"></div>
+          <p>
+            Strategic digital marketing and growth support for ecommerce brands,
+            including performance-driven campaigns and scalable online sales
+            strategies.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT STRIP -->
+    <section id="contact">
+      <div>
+        <h2>Get in touch</h2>
+        <p>
+          For company information, business inquiries, or administrative
+          matters, please contact us.
+        </p>
+      </div>
+      <div class="contact-info">
+        <span>ATRIA COMMERCE</span>
+        <a href="tel:+306932543860">+30 693 254 3860</a>
+        <a href="#">Φιλίου Ν 3, 41335, Λάρισα, Ελλάδα</a>
+      </div>
+    </section>
+
+    <!-- COMPANY INFO -->
+    <section id="company-info">
+      <p class="company-info-title">Company Information</p>
+      <dl class="company-info-grid">
+        <div class="company-info-row">
+          <dt>Trade Name:</dt>
+          <dd>ATRIA COMMERCE</dd>
+        </div>
+        <div class="company-info-row">
+          <dt>Legal Name:</dt>
+          <dd>ΜΠΛΙΑΜΠΛΙΑΣ Θ. ΜΟΝΟΠΡΟΣΩΠΗ ΙΔΙΩΤΙΚΗ ΚΕΦΑΛΑΙΟΥΧΙΚΗ ΕΤΑΙΡΕΙΑ</dd>
+        </div>
+        <div class="company-info-row">
+          <dt>Legal Form:</dt>
+          <dd>Single Member Private Company (IKE)</dd>
+        </div>
+        <div class="company-info-row">
+          <dt>VAT Number:</dt>
+          <dd>EL803204250</dd>
+        </div>
+        <div class="company-info-row">
+          <dt>GEMI Number:</dt>
+          <dd>192061240000</dd>
+        </div>
+        <div class="company-info-row">
+          <dt>EUID:</dt>
+          <dd>ELGEMI.192061240000</dd>
+        </div>
+        <div class="company-info-row">
+          <dt>Registered Address:</dt>
+          <dd>Φιλίου Ν 3, 41335, Λάρισα, Ελλάδα</dd>
+        </div>
+        <div class="company-info-row">
+          <dt>Registry:</dt>
+          <dd>General Commercial Registry, Greece</dd>
+        </div>
+        <div class="company-info-row">
+          <dt>Managing Director:</dt>
+          <dd>Θεόδωρος Μπλιαμπλιάς</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">ATRIA<span>.</span></div>
+      <p>© 2025 ATRIA COMMERCE. All rights reserved.</p>
+      <p>Λάρισα, Ελλάδα</p>
+    </footer>
+
+    <script>
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+              setTimeout(() => e.target.classList.add("visible"), i * 100);
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+      reveals.forEach((el) => observer.observe(el));
+    </script>
+  </body>
 </html>
